@@ -1,4 +1,3 @@
-import sys
 import pygame
 
 # Importing settings 
@@ -6,6 +5,9 @@ from settings import Settings
 
 # Import ships 
 from ship import Ship
+
+# Import game functions 
+import game_functions as gf
 
 def run_game():
     # Initialize game and create a screen object.
@@ -22,20 +24,12 @@ def run_game():
     pygame.display.set_caption("Alien Invasion")
 
     # Make a ship 
-    ship = Ship(screen)
+    ship = Ship(ai_settings,screen)
 
     # Start the main loop for the game.
     while True:
     # Watch for keyboard and mouse events.
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-        
-        # Redraw the screen during each pass through the loop 
-        screen.fill(ai_settings.screen_color)
-        ship.blitme()
-        # Make the most recently drawn screen visible.
-        # This is the double buffering 
-        pygame.display.flip()
+        gf.check_events(ship)
+        gf.update_screen(ai_settings, screen, ship)
 
 run_game()
