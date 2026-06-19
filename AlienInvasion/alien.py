@@ -1,0 +1,41 @@
+import pygame
+
+class Alien(Sprite):
+    """A class to represent a single alien in the fleet"""
+
+    def __init__(self, ai_settings, screen):
+        """Initialize the alien and set its starting position"""
+        super(Alien, self).__init__()
+        self.screen = screen
+        self.ai_settings = ai_settings 
+
+        """Load the alien image and set its rect attribute"""
+        # This function return a surface representing the ship 
+        self.image = pygame.image.load('images/alien.bmp')
+        self.rect = self.image.get_rect() # el rectangulo es el de la imagen 
+        
+        # Place it near the top left corner of the screen , adding a spce 
+        self.rect.x = self.rect.width
+        self.rect.y = self.rect.height
+
+        self.x  = float(self.rect.x)
+
+
+        # The following was homemade 
+        # Access the surface rect attribute 
+        # self.screen_rect = screen.get_rect() # el rectangulo de la imagen 
+
+        # self.rect.centerx = self.screen_rect.centerx # The center of the rectangle is the same as the screen 
+        
+        # # self.rect.center = self.screen_rect.center  # The bottom of the rect is allign with the screen bottom
+        
+        # # Store a decimal value for the ship's center 
+        # self.center = float(self.rect.centerx) # This is the cneter of the rect but as float
+
+    def blitme(self):
+        """Draw the ship at its current location""" 
+        self.screen.blit(self.image, self.rect)
+        # Entonces para dibujar, se usa blit y requiere la imagen y el rectangulo
+
+    def update(self):
+         self.rect.centerx = self.center

@@ -6,6 +6,9 @@ from settings import Settings
 # Import ships 
 from ship import Ship
 
+# Import alien 
+from alien import Alien
+
 # Import game functions 
 import game_functions as gf
 
@@ -29,6 +32,11 @@ def run_game():
     # Make a ship 
     ship = Ship(ai_settings,screen)
 
+    # Make an aline // Working 
+    aliens = []
+    gf.set_aliens(ai_settings, screen, aliens)
+    # Fill the aliens group
+
     # Mak a group to store bullets in 
     bullets= Group()
 
@@ -38,10 +46,12 @@ def run_game():
         gf.check_events(ai_settings, screen, ship, bullets)
         # Because bullets is a Group of sprites, the update()
         # is run for every bullet 
+        gf.update_bullets(bullets)
+        
         ship.update()
 
-        gf.update_bullets(bullets)
+        gf.update_aliens(aliens) # working on this
 
-        gf.update_screen(ai_settings, screen, ship, bullets)
+        gf.update_screen(ai_settings, screen, ship, bullets, aliens)
 
 run_game()

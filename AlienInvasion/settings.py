@@ -15,5 +15,9 @@ class Settings():
         self.bullet_height = 15 
         self.bullet_color = (60,60,60)
         self.bullets_allowed = 3
-        # Vamos a intentarlo por nosotros 
+
+        # Alien settings 
+        # How many alienst 
+        self.aliens_ammount = 5
+
         pass

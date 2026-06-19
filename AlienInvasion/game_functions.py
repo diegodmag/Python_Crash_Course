@@ -4,6 +4,8 @@ import pygame
 
 from bullet import Bullet
 
+from alien import Alien
+
 def check_events(ai_settings, screen, ship, bullets):
     """Respond to keypressed and mouse events"""
     for event in pygame.event.get():
@@ -16,7 +18,9 @@ def check_events(ai_settings, screen, ship, bullets):
 
 def check_keydown_events(event, ai_settings, screen, ship, bullets):
     """Respond to KEYDOWN events"""
-    if event.key == pygame.K_d:
+    if event.key == pygame.K_ESCAPE:
+        sys.exit()
+    elif event.key == pygame.K_d:
         ship.moving_right = True
     elif event.key == pygame.K_a:
         ship.moving_left = True
@@ -30,7 +34,7 @@ def check_keyup_events(event, ship):
         ship.moving_left = False
 
 
-def update_screen(ai_settings, screen, ship, bullets):
+def update_screen(ai_settings, screen, ship, bullets, aliens):
     """Update images on the screen and flip to the new screen"""
     # Redraw the screen during each pass through the loop 
     screen.fill(ai_settings.screen_color)
@@ -40,6 +44,10 @@ def update_screen(ai_settings, screen, ship, bullets):
         bullet.draw_bullet()
 
     ship.blitme()
+
+    for aliens in aliens:
+        aliens.blitme()
+    # Draw aliens
 
     # Make the most recently drawn screen visible.
     # This is the double buffering 
@@ -62,3 +70,24 @@ def fire_bullet(ai_settings, screen, ship, bullets):
         # Create a new bullet and add it to the bullets Group
         new_bullet = Bullet(ai_settings, screen, ship)
         bullets.add(new_bullet)
+
+
+# This is homemade a function that determines the space betwwen alines 
+def set_aliens(ai_settings, screen, aliens):
+    # alien = Alien(ai_settings,screen)
+
+    # Determine the spacing
+    space_x = float(ai_settings.screen_width)/ai_settings.aliens_ammount
+
+    # Each space_x we set a new alien 
+    for i in range(ai_settings.aliens_ammount):
+        alien_starting_x_pos = (i+1) * space_x
+        if(alien_starting_x_pos < ai_settings.screen_width):
+            new_alien = Alien(ai_settings, screen) # create a new alien
+            new_alien.center = alien_starting_x_pos
+            print(f"The alien should be set at {alien_starting_x_pos}")
+            aliens.append(new_alien)
+
+def update_aliens(aliens):
+    for alien in aliens:
+        alien.update()
