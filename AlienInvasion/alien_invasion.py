@@ -39,7 +39,8 @@ def run_game():
         # Because bullets is a Group of sprites, the update()
         # is run for every bullet 
         ship.update()
-        bullets.update()
+
+        gf.update_bullets(bullets)
 
         gf.update_screen(ai_settings, screen, ship, bullets)
 

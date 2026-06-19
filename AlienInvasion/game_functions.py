@@ -21,12 +21,7 @@ def check_keydown_events(event, ai_settings, screen, ship, bullets):
     elif event.key == pygame.K_a:
         ship.moving_left = True
     elif event.key == pygame.K_SPACE:
-        # Create a new bullet and add it to the bullets Group
-        new_bullet = Bullet(ai_settings, screen, ship)
-        bullets.add(new_bullet)
-        print(f"FIRE!\n")
-        print(f"Starting posiiton bullet: {new_bullet.rect.centery}\n")
-        print(f"Ship Y position: {ship.rect.centery}\n")
+        fire_bullet(ai_settings,screen,ship,bullets)
 
 def check_keyup_events(event, ship):
     if event.key == pygame.K_d:
@@ -49,3 +44,21 @@ def update_screen(ai_settings, screen, ship, bullets):
     # Make the most recently drawn screen visible.
     # This is the double buffering 
     pygame.display.flip()
+
+def update_bullets(bullets):
+    bullets.update()
+
+    # Check for bullets out the screen 
+    # Golden rule: Never modifie a list that is being iterated 
+    # copy creates a list that point to the same elements 
+    for bullet in bullets.copy():
+        if bullet.rect.bottom <=0: 
+            bullets.remove(bullet) 
+    # The group that is being iterated is the copy 
+    # but the modified is the original 
+
+def fire_bullet(ai_settings, screen, ship, bullets):
+    if len(bullets) < ai_settings.bullets_allowed: 
+        # Create a new bullet and add it to the bullets Group
+        new_bullet = Bullet(ai_settings, screen, ship)
+        bullets.add(new_bullet)
