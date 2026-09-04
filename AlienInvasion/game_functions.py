@@ -54,7 +54,7 @@ def update_screen(ai_settings, screen, ship, bullets, fleet):
     pygame.display.flip()
 
 def update_bullets(bullets, deltaTime):
-    bullets.update()
+    bullets.update(deltaTime)
 
     # Check for bullets out the screen 
     # Golden rule: Never modifie a list that is being iterated 
@@ -71,44 +71,3 @@ def fire_bullet(ai_settings, screen, ship, bullets):
         new_bullet = Bullet(ai_settings, screen, ship)
         bullets.add(new_bullet)
 
-
-# We should have some alien specific system 
-
-# # This is homemade a function that determines the space betwwen alines 
-# def create_fleet(ai_settings, screen, aliens):
-#     # Determine the spacing
-#     # Spacing between aliens is one width and height 
-#     alien_model = Alien(ai_settings,screen) # Just for measurements 
-#     alien_width, alien_height =  alien_model.rect.size # get dimentions 
-
-#     screen_width, screen_height = screen.get_size() 
-
-#     current_x, current_y = alien_width, alien_height
-
-#     # Column creation 
-#     while current_y < screen_height - alien_height*3:
-#         # Row creation 
-#         while current_x < screen_width*2:
-#             create_alien(ai_settings, screen, current_x, current_y, aliens);            
-#             current_x += alien_width*2
-#         current_x = alien_width
-#         current_y+=alien_height*2
-        
-# def create_alien(ai_settings, screen, x_pos, y_pos, aliens):
-#     new_alien = Alien(ai_settings, screen) 
-#     # new_alien.center = x_pos
-#     new_alien.x = x_pos 
-#     new_alien.rect.x = x_pos
-#     new_alien.rect.y = y_pos
-#     aliens.append(new_alien)
-
-# def update_aliens(aliens, deltaTime):
-#     for alien in aliens:
-#         alien.update(deltaTime)
-
-# def check_fleet_edges(aliens):
-#     #
-#     for alien in aliens: 
-#         if alien.check_edges():
-#             ##change direction 
-#             break

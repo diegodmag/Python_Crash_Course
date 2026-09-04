@@ -20,14 +20,16 @@ class AlienFleet():
 
         screen_width, screen_height = self.screen.get_size() 
 
+        spacing_x = alien_width*2
+
         current_x, current_y = alien_width, alien_height
 
-        # Column creation 
+        #Column creation 
         while current_y < screen_height - alien_height*3:
             # Row creation 
-            while current_x < screen_width*2:
+            while current_x < (screen_width-alien_width):
                 self.create_alien(current_x, current_y);            
-                current_x += alien_width*2
+                current_x += spacing_x
             current_x = alien_width
             current_y+=alien_height*2
 
@@ -50,11 +52,11 @@ class AlienFleet():
         for alien in self.alien_list:
             if alien.check_edges():
                 # change direction 
-                self.change_fleet_direction(deltaTime)
+                self.change_fleet_direction()
                 break
 
-    def change_fleet_direction(self, deltaTime):
+    def change_fleet_direction(self):
         # Drop the entire fleet 
         for alien in self.alien_list:
-            alien.rect.y += self.ai_settings.fleet_drop_speed * deltaTime
+            alien.rect.y += self.ai_settings.fleet_drop_speed 
         self.ai_settings.fleet_direction *= -1

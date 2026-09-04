@@ -29,9 +29,10 @@ class Alien(Sprite):
 
     def update(self, deltaTime):
         self.x += self.ai_settings.alien_speed *self.ai_settings.fleet_direction* deltaTime
-        self.rect.centerx = self.x
+        self.rect.centerx = int(self.x)
         
 
     def check_edges(self):
         screen_rect = self.screen.get_rect()
         return (self.rect.right >= screen_rect.right or self.rect.left <= 0)
+        # return (self.rect.centerx >= screen_rect.centerx or self.rect.centerx <= 0)
