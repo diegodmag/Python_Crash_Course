@@ -7,7 +7,9 @@ from settings import Settings
 from ship import Ship
 
 # Import alien 
-from alien import Alien
+# from alien import Alien
+
+from alien_fleet import AlienFleet
 
 # Import game functions 
 import game_functions as gf
@@ -41,8 +43,9 @@ def run_game():
     ship = Ship(ai_settings,screen)
 
     # Make an aline // Working 
-    aliens = []
-    gf.create_fleet(ai_settings, screen, aliens)
+    fleet = AlienFleet(ai_settings, screen)
+    # aliens = []
+    # gf.create_fleet(ai_settings, screen, aliens)
     # Fill the aliens group
 
     # Mak a group to store bullets in 
@@ -64,8 +67,9 @@ def run_game():
         
         ship.update(dt)
 
-        gf.update_aliens(aliens, dt) # working on this
+        fleet.update(dt)
+        # gf.update_aliens(aliens, dt) # working on this
 
-        gf.update_screen(ai_settings, screen, ship, bullets, aliens)
+        gf.update_screen(ai_settings, screen, ship, bullets, fleet)
 
 run_game()

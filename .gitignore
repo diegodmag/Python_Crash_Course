@@ -1,14 +1,26 @@
 # Entorno virtual
 venv/
+.venv/
+env/
 
 # Archivos compilados de Python
 __pycache__/
 *.py[cod]
 *.pyo
 
-# Archivos de configuración de VS Code (opcional, decide si compartir tu configuración)
+# Archivos de distribución / empaquetado
+*.egg-info/
+dist/
+build/
+
+# Entorno de desarrollo (VS Code / PyCharm)
 .vscode/
+.idea/
 
 # Archivos de sistema operativo
 .DS_Store
 Thumbs.db
+
+# Datos locales del juego (saves temporales, logs, etc.)
+*.log
+*.sqlite3

@@ -34,7 +34,7 @@ def check_keyup_events(event, ship):
         ship.moving_left = False
 
 
-def update_screen(ai_settings, screen, ship, bullets, aliens):
+def update_screen(ai_settings, screen, ship, bullets, fleet):
     """Update images on the screen and flip to the new screen"""
     # Redraw the screen during each pass through the loop 
     screen.fill(ai_settings.screen_color)
@@ -45,7 +45,7 @@ def update_screen(ai_settings, screen, ship, bullets, aliens):
 
     ship.blitme() # blit the ship onto the screen 
 
-    for aliens in aliens:
+    for aliens in fleet.alien_list:
         aliens.blitme()
     # Draw aliens
 
@@ -74,43 +74,41 @@ def fire_bullet(ai_settings, screen, ship, bullets):
 
 # We should have some alien specific system 
 
-# This is homemade a function that determines the space betwwen alines 
-def create_fleet(ai_settings, screen, aliens):
-    # Determine the spacing
-    # Spacing between aliens is one width and height 
-    alien_model = Alien(ai_settings,screen) # Just for measurements 
-    alien_width, alien_height =  alien_model.rect.size # get dimentions 
+# # This is homemade a function that determines the space betwwen alines 
+# def create_fleet(ai_settings, screen, aliens):
+#     # Determine the spacing
+#     # Spacing between aliens is one width and height 
+#     alien_model = Alien(ai_settings,screen) # Just for measurements 
+#     alien_width, alien_height =  alien_model.rect.size # get dimentions 
 
-    screen_width, screen_height = screen.get_size() 
+#     screen_width, screen_height = screen.get_size() 
 
-    current_x, current_y = alien_width, alien_height
+#     current_x, current_y = alien_width, alien_height
 
-    while current_y < screen_height - alien_height*3:
-        # Row creation 
-        while current_x < screen_width*2:
-            create_alien(ai_settings, screen, current_x, current_y, aliens);            
-            current_x += alien_width*2
-        current_x = alien_width
-        current_y+=alien_height*2
+#     # Column creation 
+#     while current_y < screen_height - alien_height*3:
+#         # Row creation 
+#         while current_x < screen_width*2:
+#             create_alien(ai_settings, screen, current_x, current_y, aliens);            
+#             current_x += alien_width*2
+#         current_x = alien_width
+#         current_y+=alien_height*2
         
-    # while(cont<screen_width-alien_width):
-    #     cont += alien_width
-        # create_alien(ai_settings, screen, cont, aliens);            
+# def create_alien(ai_settings, screen, x_pos, y_pos, aliens):
+#     new_alien = Alien(ai_settings, screen) 
+#     # new_alien.center = x_pos
+#     new_alien.x = x_pos 
+#     new_alien.rect.x = x_pos
+#     new_alien.rect.y = y_pos
+#     aliens.append(new_alien)
 
-    # Each space_x we set a new alien 
-    # for i in range(ai_settings.aliens_ammount):
-    #     alien_starting_x_pos = (i+1) * space_x
-    #     if(alien_starting_x_pos < ai_settings.screen_width):
-    #         create_alien(ai_settings, screen, alien_starting_x_pos, aliens)
+# def update_aliens(aliens, deltaTime):
+#     for alien in aliens:
+#         alien.update(deltaTime)
 
-def create_alien(ai_settings, screen, x_pos, y_pos, aliens):
-    new_alien = Alien(ai_settings, screen) 
-    # new_alien.center = x_pos
-    new_alien.x = x_pos 
-    new_alien.rect.x = x_pos
-    new_alien.rect.y = y_pos
-    aliens.append(new_alien)
-
-def update_aliens(aliens, deltaTime):
-    for alien in aliens:
-        alien.update(deltaTime)
+# def check_fleet_edges(aliens):
+#     #
+#     for alien in aliens: 
+#         if alien.check_edges():
+#             ##change direction 
+#             break

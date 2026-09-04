@@ -20,5 +20,9 @@ class Settings():
         # Alien settings 
         # How many alienst 
         self.aliens_ammount = 8
+        self.alien_speed = 100 
+        self.fleet_drop_speed = 10
+        # flet direction 
+        self.fleet_direction = 1
 
         pass

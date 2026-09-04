@@ -28,4 +28,10 @@ class Alien(Sprite):
         # Entonces para dibujar, se usa blit y requiere la imagen y el rectangulo
 
     def update(self, deltaTime):
-         self.rect.centerx = self.x
+        self.x += self.ai_settings.alien_speed *self.ai_settings.fleet_direction* deltaTime
+        self.rect.centerx = self.x
+        
+
+    def check_edges(self):
+        screen_rect = self.screen.get_rect()
+        return (self.rect.right >= screen_rect.right or self.rect.left <= 0)
