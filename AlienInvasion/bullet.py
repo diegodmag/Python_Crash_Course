@@ -27,11 +27,11 @@ class Bullet(Sprite):
         self.speed_factor = ai_settings.bullet_speed_factor
 
     
-    def update(self,):
+    def update(self, deltaTime):
         """Move the bullet up the screen"""
         # update the decimal position of the bullet
-        self.y -= self.speed_factor # Tiene que ser negativo 
-        self.rect.centery = self.y
+        self.y -= self.speed_factor * deltaTime # Tiene que ser negativo 
+        self.rect.centery = self.y # centrar el rectangulo al nuevo y 
 
     
     def draw_bullet(self):

@@ -32,15 +32,15 @@ class Ship():
         self.screen.blit(self.image, self.rect)
         # Entonces para dibujar, se usa blit y requiere la imagen y el rectangulo
     
-    def update(self):
+    def update(self, deltaTime):
         """Update the ship's position based on the movement flag"""         
         # print(f"Position {self.rect.centerx}\n")
         # Update the ship's center value, not the rect 
         if self.moving_right and self.rect.right < self.screen_rect.right:
             # self.rect.centerx +=1
-            self.center += self.ai_settings.ship_speed_factor
+            self.center += self.ai_settings.ship_speed_factor * deltaTime
         if self.moving_left and self.rect.left > 0:
-            self.center -= self.ai_settings.ship_speed_factor
+            self.center -= self.ai_settings.ship_speed_factor * deltaTime
         
         # Beacuse centerx only stores int values, it will take only 
         # the integer part of self.center

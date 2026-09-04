@@ -15,6 +15,14 @@ import game_functions as gf
 # This works as a list 
 from pygame.sprite import Group
 
+# sys.prefix -> Una cadena que da el prefijo del sitio especifico donde los archivos 
+# de python independientemente de la plataforma son instalados. En UNIX por defecto es 
+# sys.prefix = /usr/local
+
+# sys.exec_prefix -> Una cadena de caracteres que guarda el directiorio donde los archivos
+# dependientes de plataforma de python son instalados. 
+
+
 def run_game():
     # Initialize game and create a screen object.
     pygame.init()
@@ -34,23 +42,29 @@ def run_game():
 
     # Make an aline // Working 
     aliens = []
-    gf.set_aliens(ai_settings, screen, aliens)
+    gf.create_fleet(ai_settings, screen, aliens)
     # Fill the aliens group
 
     # Mak a group to store bullets in 
     bullets= Group()
 
+    # Init clock 
+    clock = pygame.time.Clock(); 
+    target_fps = 60
+
     # Start the main loop for the game.
     while True:
-    # Watch for keyboard and mouse events.
+
+        dt = clock.tick(60) / 1000.0 # delta time in seconds 
+    # Watch for keyboard and mouse e    vents.
         gf.check_events(ai_settings, screen, ship, bullets)
         # Because bullets is a Group of sprites, the update()
         # is run for every bullet 
-        gf.update_bullets(bullets)
+        gf.update_bullets(bullets, dt)
         
-        ship.update()
+        ship.update(dt)
 
-        gf.update_aliens(aliens) # working on this
+        gf.update_aliens(aliens, dt) # working on this
 
         gf.update_screen(ai_settings, screen, ship, bullets, aliens)
 

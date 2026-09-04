@@ -1,5 +1,7 @@
 import pygame
 
+from pygame.sprite import Sprite
+
 class Alien(Sprite):
     """A class to represent a single alien in the fleet"""
 
@@ -20,22 +22,10 @@ class Alien(Sprite):
 
         self.x  = float(self.rect.x)
 
-
-        # The following was homemade 
-        # Access the surface rect attribute 
-        # self.screen_rect = screen.get_rect() # el rectangulo de la imagen 
-
-        # self.rect.centerx = self.screen_rect.centerx # The center of the rectangle is the same as the screen 
-        
-        # # self.rect.center = self.screen_rect.center  # The bottom of the rect is allign with the screen bottom
-        
-        # # Store a decimal value for the ship's center 
-        # self.center = float(self.rect.centerx) # This is the cneter of the rect but as float
-
     def blitme(self):
         """Draw the ship at its current location""" 
         self.screen.blit(self.image, self.rect)
         # Entonces para dibujar, se usa blit y requiere la imagen y el rectangulo
 
-    def update(self):
-         self.rect.centerx = self.center
+    def update(self, deltaTime):
+         self.rect.centerx = self.x

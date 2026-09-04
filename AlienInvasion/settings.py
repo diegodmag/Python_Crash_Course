@@ -7,7 +7,8 @@ class Settings():
         self.screen_height = 800
         self.screen_color = (230,230,230)
         
-        self.ship_speed_factor = 1.5
+        self.ship_speed_factor = 150 # this is now in pixels per second 
+
 
         # Bullets settings 
         self.bullet_speed_factor = 1
@@ -18,6 +19,6 @@ class Settings():
 
         # Alien settings 
         # How many alienst 
-        self.aliens_ammount = 5
+        self.aliens_ammount = 8
 
         pass
