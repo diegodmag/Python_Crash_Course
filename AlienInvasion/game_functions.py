@@ -2,9 +2,13 @@ import sys
 
 import pygame 
 
+import time
+
 from bullet import Bullet
 
 from alien import Alien
+
+from ship import Ship
 
 def check_events(ai_settings, screen, ship, bullets):
     """Respond to keypressed and mouse events"""
@@ -45,13 +49,30 @@ def update_screen(ai_settings, screen, ship, bullets, fleet):
 
     ship.blitme() # blit the ship onto the screen 
 
-    for aliens in fleet.alien_list:
+    for aliens in fleet.alien_group:
         aliens.blitme()
     # Draw aliens
 
     # Make the most recently drawn screen visible.
     # This is the double buffering 
     pygame.display.flip()
+
+def destroy_group_on_collision(group_one, group_two):
+    # check for any collider from group one that has collide with any collider from group two 
+    collisions = pygame.sprite.groupcollide(group_one, group_two, True, True)
+
+def on_ship_hit(ai_settings, ship, bullets, fleet):
+    # decrement ship left 
+    ai_settings.ship_limit -=1
+    # reset ship 
+    ship.center_ship()
+    # reset bullets 
+    bullets.empty()
+    # reset fleet 
+    fleet.alien_group.empty()
+    fleet.init_fleet()
+    # sleep the main thread 
+    time.sleep(0.5)
 
 def update_bullets(bullets, deltaTime):
     bullets.update(deltaTime)

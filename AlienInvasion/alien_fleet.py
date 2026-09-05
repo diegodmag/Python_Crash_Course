@@ -8,7 +8,7 @@ class AlienFleet():
 
         self.ai_settings = ai_settings
         self.screen = screen 
-        self.alien_list = []
+        self.alien_group = pygame.sprite.Group()
 
         self.init_fleet()
 
@@ -39,17 +39,17 @@ class AlienFleet():
         new_alien.x = x_pos 
         new_alien.rect.x = x_pos
         new_alien.rect.y = y_pos
-        self.alien_list.append(new_alien)
+        self.alien_group.add(new_alien)
 
     def update(self, deltaTime):
 
         self.check_fleet_edges(deltaTime)
 
-        for alien in self.alien_list:
+        for alien in self.alien_group:
             alien.update(deltaTime)
 
     def check_fleet_edges(self, deltaTime):
-        for alien in self.alien_list:
+        for alien in self.alien_group:
             if alien.check_edges():
                 # change direction 
                 self.change_fleet_direction()
@@ -57,6 +57,6 @@ class AlienFleet():
 
     def change_fleet_direction(self):
         # Drop the entire fleet 
-        for alien in self.alien_list:
+        for alien in self.alien_group:
             alien.rect.y += self.ai_settings.fleet_drop_speed 
         self.ai_settings.fleet_direction *= -1

@@ -1,0 +1,10 @@
+
+class GameStats():
+
+    def __init__(self, ai_settings):
+        """Initialize statistics"""
+        self.settings = ai_settings 
+
+    def rest_stats(self):
+        # self.ship_left - self.settings.ship_limit
+        pass 

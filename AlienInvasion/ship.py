@@ -15,18 +15,15 @@ class Ship():
         self.rect = self.image.get_rect() # el rectangulo es el de la imagen 
         self.screen_rect = screen.get_rect() # el rectangulo de la imagen 
 
-        
-        """Start each new ship at the bottom center of the screen"""
-        self.rect.centerx = self.screen_rect.centerx # The center of the rectangle is the same as the screen 
-        self.rect.bottom = self.screen_rect.bottom  # The bottom of the rect is allign with the screen bottom
+        self.center = 0.0
+        self.center_ship()
         
         # Store a decimal value for the ship's center 
-        self.center = float(self.rect.left) # This is the cneter of the rect but as float
+        # self.center = float(self.rect.left) # This is the cneter of the rect but as float
 
         # Movement flags
         self.moving_right = False
         self.moving_left = False
-    
     def blitme(self):
         """Draw the ship at its current location""" 
         self.screen.blit(self.image, self.rect)
@@ -45,3 +42,7 @@ class Ship():
         # Beacuse centerx only stores int values, it will take only 
         # the integer part of self.center
         self.rect.centerx = self.center
+    def center_ship(self):
+        self.rect.centerx = self.screen_rect.centerx # The center of the rectangle is the same as the screen 
+        self.rect.bottom = self.screen_rect.bottom  # The bottom of the rect is allign with the screen bottom
+        self.center = float(self.rect.centerx)
