@@ -38,7 +38,10 @@ class AlienFleet():
         # new_alien.center = x_pos
         new_alien.x = x_pos 
         new_alien.rect.x = x_pos
+
+        new_alien.y = y_pos
         new_alien.rect.y = y_pos
+
         self.alien_group.add(new_alien)
 
     def update(self, deltaTime):
@@ -58,5 +61,6 @@ class AlienFleet():
     def change_fleet_direction(self):
         # Drop the entire fleet 
         for alien in self.alien_group:
-            alien.rect.y += self.ai_settings.fleet_drop_speed 
+            alien.y += self.ai_settings.fleet_drop_speed 
+            alien.rect.y = int(alien.y)
         self.ai_settings.fleet_direction *= -1

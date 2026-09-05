@@ -25,6 +25,17 @@ from pygame.sprite import Group
 # sys.exec_prefix -> Una cadena de caracteres que guarda el directiorio donde los archivos
 # dependientes de plataforma de python son instalados. 
 
+def check_if_reset(settings, stats,  ship, fleet, bullets):
+    # NEEDS: to be abstracted into game_functions 
+    if (pygame.sprite.spritecollideany(ship, fleet.alien_group)):
+        gf.reset_game(settings, stats, ship, bullets, fleet)
+
+    if(gf.checkif_screen_bottom_hit(settings, fleet)):
+        gf.reset_game(settings, stats, ship, bullets, fleet)
+
+    if not fleet.alien_group:
+        fleet.init_fleet()
+        bullets.empty()
 
 def run_game():
     # Initialize game and create a screen object.
@@ -53,28 +64,31 @@ def run_game():
     clock = pygame.time.Clock(); 
     target_fps = 60
 
+    game_active = True 
+
     # Start the main loop for the game.
     while True:
 
+        # temporal 
+        if stats.ship_left <= 0:
+            game_active = False
+
         dt = clock.tick(60) / 1000.0 # delta time in seconds 
-    # Watch for keyboard and mouse e    vents.
+        # Watch for keyboard and mouse e    vents.
         gf.check_events(ai_settings, screen, ship, bullets)
 
-        # NEEDS: to be abstracted into game_functions 
-        if not fleet.alien_group:
-            fleet.init_fleet()
-            bullets.empty()
-        # NEEDS: to be abstracted into game_functions 
-        if pygame.sprite.spritecollideany(ship, fleet.alien_group):
-            gf.on_ship_hit(ai_settings, ship, bullets, fleet)
 
-        gf.update_bullets(bullets, dt)
-        
-        ship.update(dt)
+        if game_active:
 
-        fleet.update(dt)
+            check_if_reset(ai_settings, stats, ship, fleet, bullets)
 
-        gf.destroy_group_on_collision(bullets, fleet.alien_group)
+            gf.update_bullets(bullets, dt)
+            
+            ship.update(dt)
+
+            fleet.update(dt)
+
+            gf.destroy_group_on_collision(bullets, fleet.alien_group)
 
         gf.update_screen(ai_settings, screen, ship, bullets, fleet)
 

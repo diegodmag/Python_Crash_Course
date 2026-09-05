@@ -10,6 +10,8 @@ from alien import Alien
 
 from ship import Ship
 
+from alien_fleet import AlienFleet
+
 def check_events(ai_settings, screen, ship, bullets):
     """Respond to keypressed and mouse events"""
     for event in pygame.event.get(): # pygame.event.get() returns a list of events 
@@ -61,9 +63,9 @@ def destroy_group_on_collision(group_one, group_two):
     # check for any collider from group one that has collide with any collider from group two 
     collisions = pygame.sprite.groupcollide(group_one, group_two, True, True)
 
-def on_ship_hit(ai_settings, ship, bullets, fleet):
+def reset_game(ai_settings, game_stats,  ship, bullets, fleet):
     # decrement ship left 
-    ai_settings.ship_limit -=1
+    game_stats.ship_left -=1
     # reset ship 
     ship.center_ship()
     # reset bullets 
@@ -74,6 +76,13 @@ def on_ship_hit(ai_settings, ship, bullets, fleet):
     # sleep the main thread 
     time.sleep(0.5)
 
+def checkif_screen_bottom_hit(settings, fleet):
+    for alien in fleet.alien_group: 
+        if alien.rect.bottom >= settings.screen_height:
+            return True
+        
+    return False
+    
 def update_bullets(bullets, deltaTime):
     bullets.update(deltaTime)
 

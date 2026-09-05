@@ -20,6 +20,7 @@ class Alien(Sprite):
         self.rect.x = self.rect.width
         self.rect.y = self.rect.height
 
+        self.y = float(self.rect.y)
         self.x  = float(self.rect.x)
 
     def blitme(self):
@@ -29,7 +30,8 @@ class Alien(Sprite):
 
     def update(self, deltaTime):
         self.x += self.ai_settings.alien_speed *self.ai_settings.fleet_direction* deltaTime
-        self.rect.centerx = int(self.x)
+        self.rect.x = int(self.x)
+        self.rect.y = int(self.y)
         
 
     def check_edges(self):
