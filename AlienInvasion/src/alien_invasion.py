@@ -14,6 +14,8 @@ import game_functions as gf
 
 from game_stats import GameStats
 
+from button import Button
+
 # This works as a list 
 from pygame.sprite import Group
 
@@ -64,7 +66,10 @@ def run_game():
     clock = pygame.time.Clock(); 
     target_fps = 60
 
-    game_active = True 
+    game_active = False 
+
+    # Create the button 
+    play_button= Button(screen, "Play")
 
     # Start the main loop for the game.
     while True:
@@ -76,7 +81,7 @@ def run_game():
         dt = clock.tick(60) / 1000.0 # delta time in seconds 
         # Watch for keyboard and mouse e    vents.
         gf.check_events(ai_settings, screen, ship, bullets)
-
+        
 
         if game_active:
 
@@ -90,6 +95,10 @@ def run_game():
 
             gf.destroy_group_on_collision(bullets, fleet.alien_group)
 
-        gf.update_screen(ai_settings, screen, ship, bullets, fleet)
+
+        gf.update_screen(ai_settings, screen, ship, bullets, fleet, game_active, play_button)
+
+
+
 
 run_game()

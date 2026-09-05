@@ -40,7 +40,7 @@ def check_keyup_events(event, ship):
         ship.moving_left = False
 
 
-def update_screen(ai_settings, screen, ship, bullets, fleet):
+def update_screen(ai_settings, screen, ship, bullets, fleet, game_state, button):
     """Update images on the screen and flip to the new screen"""
     # Redraw the screen during each pass through the loop 
     screen.fill(ai_settings.screen_color)
@@ -57,6 +57,9 @@ def update_screen(ai_settings, screen, ship, bullets, fleet):
 
     # Make the most recently drawn screen visible.
     # This is the double buffering 
+    if not game_state:
+        button.draw_button()
+        
     pygame.display.flip()
 
 def destroy_group_on_collision(group_one, group_two):
