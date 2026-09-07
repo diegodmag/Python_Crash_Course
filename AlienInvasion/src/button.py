@@ -29,3 +29,8 @@ class Button():
         """Draw black button and the draw a message"""  
         self.screen.fill(self.button_color, self.rect)
         self.screen.blit(self.msg_image, self.msg_image_rect)
+
+    def check_if_pressed(self, mouse_pos):
+        """mouse_pos is suppose to be a tuple"""
+        if self.rect.collidepoint(mouse_pos):
+            return True

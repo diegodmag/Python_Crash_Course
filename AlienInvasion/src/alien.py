@@ -13,7 +13,7 @@ class Alien(Sprite):
 
         """Load the alien image and set its rect attribute"""
         # This function return a surface representing the ship 
-        self.image = pygame.image.load('images/alien.bmp')
+        self.image = pygame.image.load('../images/alien.bmp')
         self.rect = self.image.get_rect() # el rectangulo es el de la imagen 
         
         # Place it near the top left corner of the screen , adding a spce 

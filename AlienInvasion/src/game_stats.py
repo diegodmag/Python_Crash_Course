@@ -8,4 +8,4 @@ class GameStats():
 
     def rest_stats(self):
         # self.ship_left - self.settings.ship_limit
-        pass 
+        self.ship_left = self.settings.ship_limit 

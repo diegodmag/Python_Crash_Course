@@ -49,6 +49,7 @@ class Game():
                 self.game_state=False
 
             dt = self.clock.tick(60)/1000.0 # delta time 
+            dt = min(dt, 0.1)
             # Check events 
             self.__check_events()
             # 
@@ -59,6 +60,9 @@ class Game():
                 self.fleet.update(dt)
 
                 self.__destroy_group_on_collision(self.bullets,self.fleet.alien_group)
+            else:
+                # pygame.mouse.set_visible(True)
+                pass
 
             self.__update_screen()
 
@@ -93,6 +97,8 @@ class Game():
         if not self.fleet.alien_group:
             self.fleet.init_fleet()
             self.bullets.empty()
+            # Speedup the level 
+            self.settings.increase_speed()
     
     def __reset_game(self):
         # decrease the ship left 
@@ -106,12 +112,15 @@ class Game():
         self.fleet.init_fleet()
         # delay 
         time.sleep(0.5)
+        # 
+        self.clock.tick()
 
     # UPDATES 
     def __update_bullets(self, deltaTime):
         for bullet in self.bullets.copy():
+            self.bullets.update(deltaTime)
             if bullet.rect.bottom <= 0: 
-                bullet.remove(bullet)
+                self.bullets.remove(bullet)
 
     # CHECK COLLISIONS 
     def __destroy_group_on_collision(self,g_1, g_2):
@@ -156,8 +165,25 @@ class Game():
 
     def __check_mouse_events(self, event, mouse_pos):
         if(self.play_button.check_if_pressed(mouse_pos)):
-            print("The play button was pressed")
-            game_state= True;
+            button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+            if button_clicked and not self.game_state:                    
+                self.stats.rest_stats()
+                self.game_state= True;
+
+                # Get rid of any remaining bullets and aliens 
+                self.bullets.empty()
+                self.fleet.alien_group.empty()
+
+                self.fleet.init_fleet()
+                self.ship.center_ship()
+
+                # Reset dynamic settings 
+                self.settings.initialize_dynamic_settings()
+
+                pygame.mouse.set_visible(False)
+
+
+
 
     def __fire_bullet(self):
         if len(self.bullets) < self.settings.bullets_allowed:

@@ -9,7 +9,7 @@ class Ship():
 
         """Load the screen and Image and get its rect"""
         # This function return a surface representing the ship 
-        self.image = pygame.image.load('images/ship.bmp')
+        self.image = pygame.image.load('../images/ship.bmp')
         
         # Access the surface rect attribute 
         self.rect = self.image.get_rect() # el rectangulo es el de la imagen 
@@ -24,6 +24,7 @@ class Ship():
         # Movement flags
         self.moving_right = False
         self.moving_left = False
+
     def blitme(self):
         """Draw the ship at its current location""" 
         self.screen.blit(self.image, self.rect)
